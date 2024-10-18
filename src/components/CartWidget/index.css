@@ -1,0 +1,206 @@
+.cartWidget-wrap {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 999;
+    padding: 10px 0;
+    width: 400px;
+    transition: 0.5s ease;
+    transform: translateX(400px);
+}
+.cartWidget-wrap.active {
+    transition: 0.5s ease;
+    transform: translateX(0);
+}
+.cartWidget-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+.cartWidget-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.cartWidget-close {
+    position: relative;
+    cursor: pointer;
+}
+.cartWidget-close span:nth-child(1) {
+    font-weight: bold;
+    margin-right: 40px;
+}
+.cartWidget-close span:nth-child(2) {
+    position: absolute;
+    top: 40%;
+    right: 5%;
+    height: 3px;
+    width: 20px;
+    background-color: black;
+    transition: 0.3s ease;
+    transform: rotate(45deg);
+}
+.cartWidget-close span:nth-child(3) {
+    position: absolute;
+    top: 40%;
+    right: 5%;
+    height: 3px;
+    width: 20px;
+    transition: 0.3s ease;
+    background-color: black;
+    transform: rotate(-45deg);
+}
+.cartWidget-close:hover span:nth-child(2) {
+    transform: rotate(0);
+    transition: 0.3s ease;
+}
+.cartWidget-close:hover span:nth-child(3) {
+    transform: rotate(0);
+    transition: 0.3s ease;
+}
+.cartWidget-body {
+    padding: 0;
+    max-height: 350px;
+    min-height: 350px;
+    overflow-y: auto;
+}
+.cartWidget-body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #f5f5f5;
+}
+.cartWidget-body::-webkit-scrollbar {
+    width: 10px;
+    background-color: #f5f5f5;
+}
+.cartWidget-body::-webkit-scrollbar-thumb {
+    background-color: #2f2b35;
+}
+.cartWidget-item {
+    list-style: none;
+    display: flex;
+    padding: 20px 20px;
+    border-top: 2px solid #e8e8e8;
+    transition: 0.3s ease;
+    width: 100%;
+}
+.cartWidget-item:hover {
+    background-color: #f9f9f9;
+}
+.cartWidget-item img {
+    width: 70px;
+    height: 70px;
+}
+.cartWidget-item_info {
+    margin-left: 20px;
+    width: 100%;
+}
+.cartWidget-item_name {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.cartWidget-item_name a {
+    display: block;
+    width: 100%;
+    color: black;
+    font-weight: bold;
+    font-size: 1.1rem;
+    line-height: 1.2rem;
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+.cartWidget-item_name span {
+    width: 30px;
+    height: 25px;
+    transition: 0.3s ease;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cartWidget-item_name span:hover {
+    background-color: white;
+    transition: 0.3s ease;
+    box-shadow: 1px 1px 1px black;
+}
+.cartWidget-item_price span:first-child {
+    font-weight: bold;
+    color: #bcbcbc;
+    margin-right: 5px;
+}
+.cartWidget-item_price span:last-child {
+    font-weight: bold;
+    color: black;
+    font-size: 1.2rem;
+}
+.cartWidget-footer {
+    padding: 20px 20px;
+    border-top: 2px solid #e8e8e8;
+}
+.cartWidget-total {
+    display: flex;
+    justify-content: space-between;
+}
+.cartWidget-total span:first-child {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #757575;
+}
+.cartWidget-total span:last-child {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: black;
+}
+.cartWidget-btn {
+    text-align: center;
+    width: 100%;
+}
+.cartWidget-btn a {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #2f2b35;
+    margin: 10px 0;
+    text-decoration: none;
+    color: rgb(231, 228, 228);
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.cartWidget-btn a:hover {
+    opacity: 0.8;
+}
+.cartWidget-item_sale {
+    position: relative;
+    margin-right: 10px;
+    font-weight: bold;
+    color: #757575;
+}
+.cartWidget-item_sale::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: #757575;
+}
+@media only screen and (max-width: 576px) {
+    .cartWidget-wrap.active {
+        width: 80%;
+    }
+    .cartWidget-item_name a {
+        font-size: 1rem;
+    }
+    .cartWidget-item_price {
+        font-size: 0.9rem;
+    }
+}
+@media only screen and (max-width: 1200px) {
+    .cartWidget-body {
+        min-height: 400px;
+        max-height: 400px;
+    }
+}

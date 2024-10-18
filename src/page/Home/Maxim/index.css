@@ -1,0 +1,26 @@
+/* maxim */
+.maxim-wrap {
+    padding: 80px 0;
+    text-align: center;
+    background-color: #edf3f4;
+}
+.maxim-content p {
+    margin: 0 auto;
+    width: 200px;
+    transition: 0.3s all ease;
+}
+.maxim-content p:hover {
+    transition: 0.3s all ease;
+    transform: scale(1.1) rotate(-10deg);
+}
+/* introduce */
+.introduce-wrap {
+    padding: 50px 0;
+}
+.introduce-item {
+    text-align: center;
+}
+.introduce-item__title p {
+    margin-top: 10px;
+    font-weight: 600;
+}

@@ -1,0 +1,20 @@
+.category-wrap {
+    background-color: #edf3f4;
+    padding: 50px 0;
+}
+.category-wrap.bgC {
+    background-color: #2f2b35;
+}
+.category-title {
+    width: 100%;
+    text-align: center;
+    margin: 30px 0;
+    font-weight: 600;
+    padding-left: 8px;
+}
+.category-title.mt {
+    text-align: start !important;
+}
+.category-title.white {
+    color: white;
+}

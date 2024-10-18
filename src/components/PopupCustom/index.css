@@ -1,0 +1,23 @@
+.popup-btn {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+.content-popup {
+    text-align: center;
+    padding: 20px 0;
+    border: 1px solid #edf3f4;
+}
+.popup-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 4px 10px;
+    background-color: #2f2b35;
+    font-size: 0.8rem;
+    color: white;
+    margin: 0 4px;
+}
+.popup-button:hover {
+    opacity: 0.6;
+}

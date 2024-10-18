@@ -1,0 +1,32 @@
+.category-product {
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding: 30px 20px;
+}
+
+.category-product__title {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.category-product__list {
+    padding: 0;
+    margin-left: 15px;
+}
+.category-product__item {
+    margin: 10px 0;
+    list-style: none;
+}
+.category-product__item a {
+    text-decoration: none;
+    transition: 0.5s ease;
+    color: inherit;
+}
+.category-product__item a:hover {
+    color: #7a7a7a;
+    transition: 0.5s ease;
+    font-style: italic;
+}
+.category-product__item.ft {
+    font-size: 0.9rem;
+}

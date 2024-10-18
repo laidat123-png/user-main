@@ -1,0 +1,11 @@
+/* introduce */
+.introduce-wrap {
+    padding: 50px 0;
+}
+.introduce-item {
+    text-align: center;
+}
+.introduce-item__title p {
+    margin-top: 10px;
+    font-weight: 600;
+}

@@ -1,0 +1,107 @@
+.book-store_wrap {
+    position: relative;
+    background-color: #edf3f4;
+    padding: 50px 0;
+}
+.filter-price {
+    background-color: white;
+    padding: 30px 20px 20px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.filter-price_title {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.filter-price_submit {
+    margin-top: 20px;
+    font-size: 0.85rem;
+}
+.filter-price_submit button {
+    display: block;
+    outline: none;
+    border: none;
+    background-color: #dddddd;
+    padding: 4px 16px;
+    color: #2f2b35;
+    border-radius: 15px;
+    margin: 10px auto 0 auto;
+}
+.filter-price_submit button:hover {
+    background-color: #2f2b35;
+    color: white;
+}
+input[type="range"] {
+    cursor: ew-resize;
+    color: #2f2b35;
+}
+.not-found_product {
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+}
+.not-found_product p {
+    font-weight: bold;
+}
+.reset-product_btn {
+    display: block;
+    outline: none;
+    border: none;
+    background-color: #dddddd;
+    padding: 4px 16px;
+    color: #2f2b35;
+    border-radius: 15px;
+    margin: 10px auto 0 auto;
+}
+.reset-product_btn:hover {
+    background-color: #2f2b35;
+    color: white;
+}
+.input-range__slider {
+    background: #e27a3f !important;
+    border: none !important;
+}
+
+.input-range__track {
+    background: #ddd;
+}
+
+.input-range__track--active {
+    background: #e27a3f !important;
+}
+
+.input-range__label--value .input-range__label-container {
+    background: #e27a3f;
+    color: white;
+    font-size: 0.65rem;
+    padding: 2px 5px;
+    border-radius: 2px;
+}
+
+.input-range__label--min {
+    display: none;
+}
+.input-range__label--max {
+    display: none;
+}
+.input-range__label--min .input-range__label-container,
+.input-range__label--max .input-range__label-container {
+    font-size: 0.65rem;
+    color: #888;
+    left: 0;
+}
+
+.input-range__label--max .input-range__label-container {
+    left: 25%;
+}
+
+@media only screen and (max-width: 1024px) {
+    .filter-price_submit button {
+        width: 100%;
+        height: 35px;
+    }
+    .reset-product_btn {
+        width: 100%;
+        height: 35px;
+    }
+}

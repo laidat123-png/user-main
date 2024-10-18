@@ -1,0 +1,29 @@
+.container-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+    align-items: center;
+    padding: 0;
+    margin: 40px 0;
+}
+.container-pagination li {
+    list-style: none;
+}
+.page-pagination {
+    font-weight: bold;
+    padding: 0 10px;
+}
+.active-pagination {
+    height: 20px;
+    color: white;
+    border-radius: 50%;
+    background-color: #2f2b35;
+}
+.container-pagination .control-pagination:first-child {
+    font-size: 1.6rem;
+    margin-right: auto;
+}
+.container-pagination .control-pagination:last-child {
+    font-size: 1.6rem;
+    margin-left: auto;
+}
