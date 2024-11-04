@@ -12,6 +12,7 @@
     display: flex;
     border-bottom: 1px solid #efefef;
     margin-bottom: 20px;
+    font-weight: bold;
 }
 .control-avatar img {
     width: 50px;
@@ -32,6 +33,7 @@
 .control-main {
     font-size: 1rem;
     transition: 0.3s ease;
+    font-weight: bold;
 }
 .control-main:hover {
     transition: 0.3s ease;
@@ -49,14 +51,17 @@
 }
 .profile_form h3 {
     margin-bottom: 20px;
+    font-weight: bold;
 }
 .profile_form-group {
     display: flex;
     margin: 10px 0;
+    font-weight: bold;
 }
 .profile_form-group label {
     width: 30%;
-    color: rgba(85, 85, 85, 0.8);
+    color: rgba(12, 142, 223, 0.8);
+    font-weight: bold;
 }
 .profile_form-group p,
 input {
@@ -65,6 +70,7 @@ input {
 .profile_form-group input {
     border: 1px solid #dbdbdb;
     padding: 0 8px;
+    margin-bottom: 20px;
 }
 .profile_form-group input:focus {
     border: 1px solid #757575;
@@ -89,6 +95,7 @@ input {
     color: white;
     transition: 0.3s ease;
     margin-top: 5px;
+    font-weight: bold;
 }
 .btn-profile_edit:hover {
     transition: 0.3s ease;
@@ -126,6 +133,7 @@ input {
 .status-bar {
     background-color: white;
     padding: 20px 20px 10px 20px;
+    font-weight: bold;
 }
 .status-bar ul {
     padding: 0;
@@ -185,6 +193,7 @@ input {
     height: 40px;
     width: 100%;
     background-color: #eaeaea;
+    font-weight: bold;
 }
 .show-order {
     margin: 10px 0;
@@ -480,6 +489,7 @@ input {
     }
     .profile_form-group {
         display: block;
+        
     }
     .profile_form-group label {
         display: block;
@@ -488,4 +498,9 @@ input {
     .order-footer_row::before {
         right: 40%;
     }
+}
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
 }

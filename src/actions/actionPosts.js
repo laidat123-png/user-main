@@ -1,6 +1,7 @@
 import callAPI from '../untils/callAPI';
 import * as types from '../constants/actionsType';
 
+// lấy thông tin của một bài viết cụ thể từ API
 export const getOnePostRequest = (dispatch, id) => {
     dispatch(isLoadingDT(true));
     return callAPI(`/post/${id}`, "GET")
@@ -48,6 +49,7 @@ const isLoadingCmt = (boolean) => {
     }
 }
 
+// thêm một bình luận vào một bài viết cụ thể
 export const addCmtPostRequest = (dispatch, cmt, idPost) => {
     dispatch(isLoadingCmt(true));
     return callAPI(`/post/comment/${idPost}`, "POST", cmt, {
@@ -77,7 +79,7 @@ const replyCmt = (replyCmt, idCmt) => {
         idCmt
     }
 }
-
+// trả lời một comment
 export const replyCmtRequest = (dispatch, cmt, id) => {
     console.log(cmt);
     dispatch(isLoadingCmt(true));
@@ -103,7 +105,7 @@ const getPostByPage = (posts, totalPage) => {
         totalPage
     }
 }
-
+// lấy bài viết theo trang
 export const getPostByPageRequest = (dispatch, value) => {
     dispatch(isLoadingDT(true));
     return callAPI(`/post?page=${value.page}&limit=${value.limit}`)
@@ -118,7 +120,7 @@ export const getPostByPageRequest = (dispatch, value) => {
             console.log(err)
         })
 }
-
+// xóa một bình luận từ một bài viết
 export const deleteCommentRequest = (dispatch, idCmt, idPost) => {
     return callAPI(`/post/${idPost}/comment/${idCmt}`, "DELETE")
         .then(res => res.data)

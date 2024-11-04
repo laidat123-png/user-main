@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Paginate } from '../../components/Paginate';
@@ -11,6 +9,7 @@ import { createMarkup } from '../../helpers/createMarkup';
 import { useSelector, useDispatch } from "react-redux";
 import { getPostByPageRequest, onResetPosts } from "../../actions/actionPosts";
 import { SkeletonPost } from "./SkeletonPost";
+
 export const Blog = () => {
     const dispatch = useDispatch();
     const posts = useSelector(state => state.posts.postAll) || [];
@@ -25,14 +24,15 @@ export const Blog = () => {
         limit: 4
     });
     const onChangePaginate = (page) => {
-        setPaginate({ ...paginate, page })
-    }
+        setPaginate({ ...paginate, page });
+    };
     useEffect(() => {
         getPostByPageRequest(dispatch, paginate);
         return () => {
             dispatch(onResetPosts());
-        }
-    }, [paginate])
+        };
+    }, [paginate]);
+
     return (
         <div className="blog-page">
             <Container>
@@ -46,20 +46,28 @@ export const Blog = () => {
                                     <div className="blog-post_header">
                                         <p className="blog-post_date">Ngày đăng: {new Date(post.createdAt).toLocaleDateString()}</p>
                                         <h2 className="blog-post_title">{post.title}</h2>
-                                        <p className="blog-post_author">Đăng bởi {`${post.author.firstName} ${post.author.lastName}`}</p>
+                                        <p className="blog-post_author">
+                                            Đăng bởi {post.author ? `${post.author.firstName} ${post.author.lastName}` : "Unknown"}
+                                        </p>
                                         <img className="blog-post_img" src={post.image} alt={post.title} />
                                     </div>
                                     <div className="blog-post_content">
-                                        <div className="blog-post_description"><div dangerouslySetInnerHTML={createMarkup(post.content)}></div></div>
-                                        <Link to={`/Detail-post/${post._id}`}>Continue Reading →</Link>
+                                        <div className="blog-post_description">
+                                            <div dangerouslySetInnerHTML={createMarkup(post.content)}></div>
+                                        </div>
+                                        <Link to={`/CHITIETBAIVIET/${post._id}`}>Continue Reading →</Link>
                                     </div>
                                 </article>
-                            )
+                            );
                         })}
-                        {totalPage > 0 ? <Paginate
-                            onChangePaginate={onChangePaginate}
-                            totalPage={totalPage}
-                        /> : ""}
+                        {totalPage > 0 ? (
+                            <Paginate
+                                onChangePaginate={onChangePaginate}
+                                totalPage={totalPage}
+                            />
+                        ) : (
+                            ""
+                        )}
                     </Col>
                     <Col lg={4}>
                         <BoxProduct
@@ -85,5 +93,5 @@ export const Blog = () => {
                 </Row>
             </Container>
         </div>
-    )
-}
+    );
+};

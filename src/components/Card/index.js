@@ -58,7 +58,7 @@ export const Card = (props) => {
     return (
         <div className="book-card">
             {product.sale > 0 ? <div className="book-card_onsale">Sale {product.sale}%</div> : ""}
-            <Link to={`/Detail-product/${product._id}`} className="book-link">
+            <Link to={`/CHITIETSANPHAM/${product._id}`} className="book-link">
                 <div className="book-image_wrap">
                     <img
                         src={product.urls[0].url}
@@ -73,7 +73,7 @@ export const Card = (props) => {
                 </div>
             </Link>
             <div className="book-button">
-                <Link to={`/Detail-product/${product._id}`}>
+                <Link to={`/CHITIETSANPHAM/${product._id}`}>
                     <FaPaperPlane
                         color="#909090"
                     />

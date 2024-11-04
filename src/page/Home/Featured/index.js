@@ -26,7 +26,7 @@ export const Featured = (props) => {
                       )}
                     ></div>
                     <div className='content-button'>
-                      <Link to={`/Detail-product/${product?._id}`}>
+                      <Link to={`/CHITIETSANPHAM/${product?._id}`}>
                         Chi tiết sách
                       </Link>
                     </div>

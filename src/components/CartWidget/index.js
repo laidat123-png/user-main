@@ -26,7 +26,7 @@ export const CartWidget = () => {
                             <img src={cart.product.urls[0]?.url} alt={cart.product.title} />
                             <div className="cartWidget-item_info">
                                 <div className="cartWidget-item_name">
-                                    <Link to={`/Detail-product/${cart.product._id}`}>{cart.product.title}</Link>
+                                    <Link to={`/CHITIETSANPHAM/${cart.product._id}`}>{cart.product.title}</Link>
                                     <span onClick={() => deleteProductInCartRequest(dispatch, cart.product._id)}>
                                         <GrFormClose
                                             fontSize="1.2rem"

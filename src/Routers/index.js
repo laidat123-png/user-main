@@ -13,25 +13,25 @@ export const routers = [
         component: Home
     },
     {
-        path: "/Bookstore",
+        path: "/SANPHAM",
         exact: true,
         component: BookStore,
         layout: true
     },
     {
-        path: "/Detail-product/:id",
+        path: "/CHITIETSANPHAM/:id",
         exact: true,
         component: DetailProduct,
         layout: true
     },
     {
-        path: "/Blog",
+        path: "/BAIVIET",
         exact: true,
         component: Blog,
         layout: true
     },
     {
-        path: "/Detail-post/:id",
+        path: "/CHITIETBAIVIET/:id",
         exact: true,
         component: DetailPost,
         layout: true
@@ -42,7 +42,7 @@ export const routers = [
         component: Auth
     },
     {
-        path: "/Contact",
+        path: "/LIENHE",
         exact: true,
         component: Contact,
         layout: true

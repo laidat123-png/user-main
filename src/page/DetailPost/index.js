@@ -78,26 +78,26 @@ export const DetailPost = () => {
                                 </div>
                             </article>
                             <nav className="nav-post">
-                                {index - 1 < 0 ? <Link to={`/Detail-post/${posts[posts.length - 1]._id}`} className="nav-pre">
+                                {index - 1 < 0 ? <Link to={`/CHITIETBAIVIET/${posts[posts.length - 1]._id}`} className="nav-pre">
                                     <span><AiOutlineLeft /></span>
                                     <div>
                                         <p className="blog-post-title">{posts[posts.length - 1].title}</p>
                                         <p className="blog-post_date">Ngày đăng : {new Date(posts[posts.length - 1].createdAt).toLocaleDateString()}</p>
                                     </div>
-                                </Link> : <Link to={`/Detail-post/${posts[index - 1]._id}`} className="nav-pre">
+                                </Link> : <Link to={`/CHITIETBAIVIET/${posts[index - 1]._id}`} className="nav-pre">
                                     <span><AiOutlineLeft /></span>
                                     <div>
                                         <p className="blog-post-title">{posts[index - 1].title}</p>
                                         <p className="blog-post_date">Ngày đăng : {new Date(posts[index - 1].createdAt).toLocaleDateString()}</p>
                                     </div>
                                 </Link>}
-                                {index + 1 >= posts.length ? <Link to={`/Detail-post/${posts[0]._id}`} className="nav-next">
+                                {index + 1 >= posts.length ? <Link to={`/CHITIETBAIVIET/${posts[0]._id}`} className="nav-next">
                                     <div>
                                         <p className="blog-post-title">{posts[0].title}</p>
                                         <p className="blog-post_date">Ngày đăng : {new Date(posts[0].createdAt).toLocaleDateString()}</p>
                                     </div>
                                     <span><AiOutlineRight /></span>
-                                </Link> : <Link to={`/Detail-post/${posts[index + 1]._id}`} className="nav-next">
+                                </Link> : <Link to={`/CHITIETBAIVIET/${posts[index + 1]._id}`} className="nav-next">
                                     <div>
                                         <p className="blog-post-title">{posts[index + 1].title}</p>
                                         <p className="blog-post_date">Ngày đăng : {new Date(posts[index + 1].createdAt).toLocaleDateString()}</p>

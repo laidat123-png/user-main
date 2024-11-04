@@ -55,7 +55,7 @@ export const Cart = () => {
                                 <p>{formatNumber(subTotal)}₫</p>
                             </div>
                             <div className="cart-next">
-                                <Link to="/Checkout">Tiền hành thanh toán</Link>
+                                <Link to="/Checkout">Tiến hành thanh toán</Link>
                             </div>
                         </div>
                     </Col>

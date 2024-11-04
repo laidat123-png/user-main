@@ -12,28 +12,28 @@ const Menus = [
   {
     to: '/',
     exact: true,
-    name: 'HOME'
+    name: 'TRANG CHỦ'
   },
   {
-    to: '/Bookstore',
+    to: '/SANPHAM',
     exact: true,
-    name: 'BOOK STORE'
+    name: 'SẢN PHẨM'
   },
-  // {
-  //   to: '/Blog',
-  //   exact: true,
-  //   name: 'BLOG'
-  // },
+  {
+    to: '/BAIVIET',
+    exact: true,
+    name: 'BÀI VIẾT'
+  },
   {
     to: '/My-account',
     exact: true,
-    name: 'MY ACCOUNT'
+    name: 'TÀI KHOẢN'
   },
-  // {
-  //   to: '/Contact',
-  //   exact: true,
-  //   name: 'CONTACT'
-  // }
+  {
+    to: '/LIENHE',
+    exact: true,
+    name: 'LIÊN HỆ'
+  }
 ]
 export const Header = () => {
   const dispatch = useDispatch()

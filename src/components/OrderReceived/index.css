@@ -8,7 +8,7 @@
     width: 100%;
     border: 2px dashed #7a9c59;
     text-align: center;
-    font-weight: 600;
+    font-weight: 800;
     font-size: 22px;
     line-height: 1.4;
 }
@@ -35,7 +35,7 @@
     border: none;
 }
 .order-overview ul li p:first-child {
-    color: #777;
+    color: red;
     font-weight: 600;
 }
 .order-overview ul li p:last-child {

@@ -18,7 +18,7 @@ export const BoxCt = (props) => {
                     if (i < length) {
                         return (
                             <li className="category-product__item ft" key={d._id}>
-                                <Link to={`/Detail-post/${d._id}`}>{d.title}</Link>
+                                <Link to={`/CHITIETBAIVIET/${d._id}`}>{d.title}</Link>
                             </li>
                         )
                     }
@@ -28,7 +28,7 @@ export const BoxCt = (props) => {
                         if (i < length) {
                             return (
                                 <li className="category-product__item ft" key={d._id}>
-                                    <Link onClick={() => onSubmitSearchTypeProduct(d._id)} to="/Bookstore">{d.name}</Link>
+                                    <Link onClick={() => onSubmitSearchTypeProduct(d._id)} to="/SANPHAM">{d.name}</Link>
                                 </li>
                             )
                         }

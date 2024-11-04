@@ -15,7 +15,7 @@ export const BoxProduct = (props) => {
                             <li className="box-product_item" key={product._id}>
                                 <img src={product.urls[0].url} alt={product.title} />
                                 <div className="box-product__content ft">
-                                    <Link to={`/Detail-product/${product._id}`}>{product.title}</Link>
+                                    <Link to={`/CHITIETSANPHAM/${product._id}`}>{product.title}</Link>
                                     <p>
                                         {showStars(product.averagedStars, "#2F2B35", "white", "0.8rem")}{(product.averagedStars - Math.trunc(product.averagedStars) >= 0.5 ? <BsStarHalf color="#2F2B35" fontSize="0.8rem" /> : "")}
                                     </p>

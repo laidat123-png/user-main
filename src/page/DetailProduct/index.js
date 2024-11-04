@@ -28,6 +28,7 @@ import { Form } from './Form';
 import { showStars } from '../../helpers/showStars';
 import { Spinner } from '../../components/Spinner';
 import { SkeletonProduct } from './SkeletonProduct';
+
 export const DetailProduct = () => {
     const listCart = useSelector(state => state.cart);
     const params = useParams();
@@ -101,6 +102,16 @@ export const DetailProduct = () => {
         })
         return index > -1 ? true : false;
     }
+
+    const handleChangeQuantity = (e) => {
+        const value = parseInt(e.target.value, 10);
+        if (value > 0 && value <= product.inStock) {
+            setQuantity(value);
+        } else if (value > product.inStock) {
+            toast("Số lượng hiện tại cao hơn số lượng hàng tồn!", toastConfig);
+        }
+    };
+
     return (
         <div>
             {loading ? <section className="detail-wrap">
@@ -144,7 +155,7 @@ export const DetailProduct = () => {
                                             <p>{product.sale > 0 ? formatNumber(Math.ceil(product.price - (product.price * product.sale / 100))) : formatNumber(product.price)}₫</p>
                                         </div>
                                         <div className="product-quantity">
-                                            <input className="product-amount" type="number" value={quantity} onChange={(e) => e.target.value < 1 ? "" : setQuantity(e.target.value)} />
+                                            <input className="product-amount" type="number" value={quantity} onChange={handleChangeQuantity} />
                                             {checkProductInCart() === false ? <button className="product-btn"
                                                 onClick={addProductToCart}
                                             >{loadingBtn ? <Spinner /> : "Thêm vào giỏ hàng"}</button> : <button className="product-btn" onClick={() => dispatch(toggleCart(true))}>Xem giỏ hàng</button>}
@@ -152,7 +163,7 @@ export const DetailProduct = () => {
                                     </div>
                                     <div className="product-type">
                                         <span>Loại sách: </span>
-                                        <Link to="/Bookstore" onClick={() => filterProductByType(product?.types._id)}>{product?.types?.name}</Link>
+                                        <Link to="/SANPHAM" onClick={() => filterProductByType(product?.types._id)}>{product?.types?.name}</Link>
                                     </div>
                                 </div>
                             </Col>
@@ -206,7 +217,7 @@ export const DetailProduct = () => {
                             <div className="product-tab">
                                 <ul>
                                     <li className={`${!activeTab ? "active" : ""}`} onClick={() => setActiveTab(false)}>Mô tả</li>
-                                    <li className={`${activeTab ? "active" : ""}`} onClick={() => setActiveTab(true)} >Reviews ({review?.length})</li>
+                                    {/* <li className={`${activeTab ? "active" : ""}`} onClick={() => setActiveTab(true)} >Reviews ({review?.length})</li> */}
                                 </ul>
                             </div>
                         </Row>
@@ -224,11 +235,11 @@ export const DetailProduct = () => {
                                     {review.map((rv, index) => {
                                         return (
                                             <li className="review-tab_commentItem" key={rv?._id}>
-                                                <img className="commentItem-avartar" alt="Ảnh đại diện" src={rv.userID.image} />
+                                                <img className="commentItem-avartar" alt="Ảnh đại diện" src={rv.userID?.image || '/default-avatar.png'} />
                                                 <div className="commentItem-text">
                                                     <div className="commentItem-meta-star">
                                                         <p className="commentItem-meta">
-                                                            <strong className="commentItem-author">{`${rv.userID.firstName} ${rv.userID.lastName}`}</strong>
+                                                            <strong className="commentItem-author">{`${rv.userID?.firstName || 'Tài khoản đã bị xóa'} ${rv.userID?.lastName || ''}`}</strong>
                                                             <span>-</span>
                                                             <time dateTime="2013-06-07T12:14:53+00:00">{new Date(rv.date).toLocaleDateString()}</time>
                                                         </p>

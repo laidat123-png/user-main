@@ -10,7 +10,7 @@ export const setUser = (user) => {
         user
     }
 }
-
+// đăng nhập
 export const signIn = (history, dispatch, value) => {
     dispatch(isLoadingAuth(true));
     return callAPI("/auth/login", "POST", value)
@@ -38,7 +38,7 @@ export const signIn = (history, dispatch, value) => {
             }
         })
 }
-
+// đăng ký
 export const signUp = (history, dispatch, value) => {
     dispatch(isLoadingAuth(true));
     return callAPI("/auth/register", "POST", value)
@@ -62,6 +62,7 @@ export const signUp = (history, dispatch, value) => {
         })
 }
 
+// lấy thông tin user
 export const getCurrentUser = (dispatch) => {
     if (sessionStorage.getItem("token")) {
         return callAPI("/auth", "GET", null, {
@@ -84,7 +85,7 @@ export const getCurrentUser = (dispatch) => {
     return;
 }
 
-
+// đăng xuất
 export const signOut = (dispatch) => {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("firstName");
@@ -95,6 +96,7 @@ export const signOut = (dispatch) => {
     dispatch(resetCart());
 }
 
+// cập nhật thông tin user
 export const updateUserRequest = async (dispatch, formData) => {
     const { data } = await callAPI("/user", "POST", formData, {
         "Authorization": `${sessionStorage.getItem("token")}`

@@ -10,31 +10,31 @@ export const Footer = () => {
                 <ul className="nav-list">
                     <li className="nav-item">
                         <Link to="/">
-                            Home
+                            Trang Chủ
                         </Link>
                     </li>
                     <li className="nav-item">
-                        {/* <Link to="/Blog"> */}
-                            Blog
-                        {/* </Link> */}
+                        <Link to="/BAIVIET">
+                            Bài viết
+                        </Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/Bookstore">
-                            Bookstore
+                        <Link to="/SANPHAM">
+                            Sản Phẩm
                         </Link>
                     </li>
                     <li className="nav-item">
                         <Link to="/My-account">
-                            My Account
+                            Tài Khoản
                         </Link>
                     </li>
                     <li className="nav-item">
-                        {/* <Link to="/Contact"> */}
-                            Contact Us
-                        {/* </Link> */}
+                        <Link to="/LIENHE">
+                            Liên Hệ
+                        </Link>
                     </li>
                 </ul>
-                <p className="nav-copyright">Copyright © Bookie Luci</p>
+                <p className="nav-copyright">Bản quyền © Bookie Luci</p>
             </nav>
         </footer>
 

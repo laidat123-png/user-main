@@ -20,7 +20,7 @@ export const CarouselP = () => {
                 <div className="carousel-content">
                     <p>Sách mới</p>
                     <h1>5 centimet trên giây</h1>
-                    <Link to="/Detail-product/664ad42a84730131c82cfcd7">Chi tiết</Link>
+                    <Link to="/CHITIETSANPHAM/67192a27a73a0b79b0876a17">Chi tiết</Link>
                 </div>
             </div>
             <div>
@@ -32,7 +32,7 @@ export const CarouselP = () => {
                 <div className="carousel-content">
                     <p>3 Kinh Nghiệm Viết Sách Thành Công Sau 10 Năm Đúc Rút...</p>
                     <h1>Bài viết mới nhất</h1>
-                    <Link to="/Detail-post/664adf0084730131c82cfdde">Chi tiết</Link>
+                    <Link to="/CHITIETBAIVIET/671c6e9e7aff0e2750a3b65a">Chi tiết</Link>
                 </div>
             </div>
             <div>
@@ -44,7 +44,7 @@ export const CarouselP = () => {
                 <div className="carousel-content">
                     <p>Nghệ thuật tinh tế của việc đếch quan tâm | Mark Manson</p>
                     <h1>Bài viết review</h1>
-                    <Link to="/Detail-post/664ae33084730131c82cfe79">Chi tiết</Link>
+                    <Link to="/CHITIETBAIVIET/664ae33084730131c82cfe79">Chi tiết</Link>
                 </div>
             </div>
         </Carousel>

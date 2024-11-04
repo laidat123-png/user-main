@@ -7,14 +7,14 @@ export const Blog = (props) => {
     const { posts } = props;
     return (
         <section className="blog-wrap">
-            <h2>From Our Blog</h2>
+            <h2>Từ Bài Viết Của Chúng Tôi</h2>
             <Container className="border-custom">
                 <Row lg={4}>
                     {posts?.map((post, index) => {
                         if (index < 4) return (
                             <Col sm={6} xs={12} md={6} key={post._id}>
                                 <div className="blog-card">
-                                    <Link to={`/Detail-post/${post._id}`} className="blog-link">
+                                    <Link to={`/CHITIETBAIVIET/${post._id}`} className="blog-link">
                                         <img
                                             alt={post.title}
                                             src={post.image} />

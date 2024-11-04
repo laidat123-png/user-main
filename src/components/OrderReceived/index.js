@@ -39,7 +39,7 @@ export const OrderReceived = () => {
                     </ul>
                 </div> : ""}
                 <div className="back-home">
-                    <Link to="/Bookstore">Tiếp tục mua sắm</Link>
+                    <Link to="/SANPHAM">Tiếp tục mua sắm</Link>
                 </div>
             </Container>
         </div>

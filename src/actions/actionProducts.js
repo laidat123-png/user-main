@@ -22,6 +22,7 @@ const fetchTypeProduct = (typeProduct) => {
     }
 }
 
+// lấy tất cả sản phẩm từ API
 export const fetchAPIRequest = (dispatch) => {
     dispatch(isLoadingAll(false));
     const products = new Promise((resolve, reject) => {
@@ -37,6 +38,7 @@ export const fetchAPIRequest = (dispatch) => {
                 if (err) reject(err);
             })
     })
+    // lấy tất cả nhà xuất bản từ API
     const nxb = new Promise((resolve, reject) => {
         return callAPI("/tn/nxb")
             .then(res => res.data)
@@ -51,6 +53,7 @@ export const fetchAPIRequest = (dispatch) => {
                 reject(err);
             })
     })
+    // lấy tất cả bài viết từ API
     const posts = new Promise((resolve, reject) => {
         return callAPI("/post/all")
             .then(res => res.data)
@@ -64,6 +67,7 @@ export const fetchAPIRequest = (dispatch) => {
                 if (err) reject(err);
             })
     })
+    // lấy tất cả loại sản phẩm từ API
     const typeProduct = new Promise((resolve, reject) => {
         return callAPI("/tn/type")
             .then(res => res.data)
@@ -75,6 +79,7 @@ export const fetchAPIRequest = (dispatch) => {
             })
             .catch(err => reject(err))
     })
+    
     Promise.all([products, posts, typeProduct, nxb])
         .then(result => {
             if (result) dispatch(isLoadingAll(true));
@@ -83,7 +88,7 @@ export const fetchAPIRequest = (dispatch) => {
             console.log(err)
         })
 }
-
+// tìm kiếm sản phẩm dựa trên một trường cụ thể
 export const searchProductByField = (dispatch, value) => {
     dispatch(isLoadingBookstore(false));
     return callAPI("/products/search-field", "POST", value)
@@ -111,7 +116,7 @@ const fetchNXB = (nxb) => {
         nxb
     }
 }
-
+//lấy danh sách các sản phẩm với phân trang
 export const fetchProductByPageRequest = (dispatch, value) => {
     dispatch(isLoadingBookstore(false));
     return callAPI(`/products?page=${value.page}&limit=${value.limit}`)
@@ -149,7 +154,7 @@ const getOneProduct = (product) => {
     }
 }
 
-
+// lấy thông tin chi tiết 1 sản phẩm dựa trên id
 export const getOneProductRequest = (dispatch, id) => {
     dispatch(isLoadingDetailP(false));
     return callAPI(`/products/${id}`)
@@ -164,7 +169,7 @@ export const getOneProductRequest = (dispatch, id) => {
             }
         })
 }
-
+// lọc các sản phẩm dựa trên giá cả
 export const filterProductByPrice = (dispatch, price) => {
     dispatch(isLoadingBookstore(false));
     return callAPI("/products/filter-price", "POST", { reqPrice: price })
@@ -190,6 +195,7 @@ const addReview = (rv) => {
     }
 }
 
+// thêm một review cho sản phẩm
 export const addReviewRequest = (dispatch, value, id) => {
     dispatch(isLoadingCmt(true));
     return callAPI(`/products/review/${id}`, "POST", value, {
@@ -207,6 +213,7 @@ export const addReviewRequest = (dispatch, value, id) => {
         .catch(err => console.log(err))
 }
 
+// xóa một sản phẩm cụ thể khỏi giỏ hàng của người dùng
 export const deleteProductInCartRequest = (dispatch, id) => {
     return callAPI(`/user/cart/${id}`, "DELETE", {}, {
         "Authorization": `Bearer ${sessionStorage.getItem("token")}`
@@ -257,6 +264,7 @@ export const resetCart = () => {
     }
 }
 
+// cập nhật giỏ hàng của người dùng
 export const updateAllCartRequest = (dispatch, listCart) => {
     dispatch(isLoadingPC(true));
     return callAPI("/user/cart/update-all", "POST", { newCart: listCart }, {
@@ -288,8 +296,7 @@ export const setSubTotalCart = (subTotal) => {
         subTotal
     }
 }
-
-
+// thêm một sản phẩm vào giỏ hàng của người dùng
 export const addProductToCartRequest = async (product, quantity) => {
     let id = product._id;
     const { data } = await callAPI("/user/cart", "POST", { product: id, quantity: quantity, price: product.price - (product.price * (product.sale > 0 ? product.sale / 100 : 1)) }, {

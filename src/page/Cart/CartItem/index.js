@@ -11,9 +11,11 @@ export const CartItem = (props) => {
     const dispatch = useDispatch();
     const { cart, deleteProductInCartRequest, handleAddAmountProduct } = props;
     const [amount, setAmount] = useState(0);
+    
     useEffect(() => {
         setAmount(cart.quantity);
-    }, [cart])
+    }, [cart]);
+
     const handleAddAmount = () => {
         if (amount < cart.product.inStock) {
             setAmount(amount + 1);
@@ -21,13 +23,25 @@ export const CartItem = (props) => {
         } else {
             toast("Số lượng hiện tại cao hơn số lượng hàng tồn!", toastConfig);
         }
-    }
+    };
+
     const handleMinusAmount = () => {
         if (amount > 1) {
             setAmount(amount - 1);
             handleAddAmountProduct(cart.product, amount - 1);
         }
-    }
+    };
+
+    const handleChangeAmount = (e) => {
+        const value = parseInt(e.target.value, 10);
+        if (value > 0 && value <= cart.product.inStock) {
+            setAmount(value);
+            handleAddAmountProduct(cart.product, value);
+        } else if (value > cart.product.inStock) {
+            toast("Số lượng hiện tại cao hơn số lượng hàng tồn!", toastConfig);
+        }
+    };
+
     return (
         <li className="cart-item">
             <span className="cart-remove" onClick={() => deleteProductInCartRequest(dispatch, cart.product._id)}>
@@ -41,19 +55,19 @@ export const CartItem = (props) => {
                 />
             </div>
             <div className="cart-content">
-                <Link className="cart-name" to={`/Detail-product/${cart?.product._id}`}>{cart?.product.title}</Link>
+                <Link className="cart-name" to={`/CHITIETSANPHAM/${cart?.product._id}`}>{cart?.product.title}</Link>
                 <div className="cart-price">
                     {cart?.product.sale > 0 ? <p className="cart-price_sale">{formatNumber(cart?.product.price)}₫</p> : ""}
                     {cart?.product.sale > 0 ? <p className="cart-price_real">{formatNumber(cart?.product.price - (cart?.product.price * cart?.product.sale / 100))}₫</p> : <p className="cart-price_real">{formatNumber(cart?.product.price)}đ</p>}
                 </div>
                 <div className="cart-quantity">
                     <span className="cart-quantity_minus" onClick={handleMinusAmount}><BiMinus /></span>
-                    <input value={amount} type="number" />
+                    <input value={amount} type="number" onChange={handleChangeAmount} />
                     <span className="cart-quantity_plus" onClick={handleAddAmount}><BsPlus /></span>
                 </div>
                 <span className="cart-subTotal">{formatNumber(cart?.quantity * (cart?.product.sale > 0 ? (cart?.product.price - (cart?.product.price * cart?.product.sale / 100)) : cart?.product.price))}₫</span>
                 <span className="cart-subTotal-moblie">Tạm tính: {formatNumber(cart?.quantity * (cart?.product.sale > 0 ? (cart?.product.price - (cart?.product.price * cart?.product.sale / 100)) : cart?.product.price))}₫</span>
             </div>
         </li>
-    )
-}
+    );
+};
