@@ -70,7 +70,7 @@ export const DetailPost = () => {
                                 <div className="blog-post_header">
                                     <p className="blog-post_date">Ngày đăng: {new Date(post.createdAt).toLocaleDateString()}</p>
                                     <h2 className="blog-post_title">{post.title}</h2>
-                                    <p className="blog-post_author">Đăng bởi {`${post?.author?.firstName} ${post?.author?.lastName}`}</p>
+                                    <p className="blog-post_author">Đăng bởi {post?.author ? `${post?.author?.firstName} ${post?.author?.lastName}` : "Người dùng đã bị xóa"}</p>
                                     <img className="blog-post_img" src={post?.image} alt={post.title} />
                                 </div>
                                 <div className="blog-post_content">
@@ -111,13 +111,13 @@ export const DetailPost = () => {
                                     {comments.map(cmt => {
                                         return (
                                             <li className="blog-comment_item" key={cmt._id._id}>
-                                                <img src={cmt._id?.author.image} alt="Ảnh đại diện" />
+                                                <img src={cmt._id?.author?.image || "default-avatar.png"} alt="Ảnh đại diện" />
                                                 <div className="blog-comment_box">
                                                     <p className="blog-comment_author">
                                                         <span>
-                                                            {`${cmt._id?.author.firstName} ${cmt._id?.author.lastName}`}
+                                                            {cmt._id?.author ? `${cmt._id?.author.firstName} ${cmt._id?.author.lastName}` : "Người dùng đã bị xóa"}
                                                         </span>
-                                                        {userID === cmt._id.author._id ? <span>
+                                                        {userID === cmt._id.author?._id ? <span>
                                                             <PopupCustom
                                                                 onDeleteComment={onDeleteComment}
                                                                 idCmt={cmt._id._id}
@@ -141,9 +141,9 @@ export const DetailPost = () => {
                                                         {cmt?._id.reply?.map(rl => {
                                                             return (
                                                                 <li className="blog-comment_item" key={rl._id || rl._idReply._id}>
-                                                                    <img src={rl._idReply.author.image} alt="Ảnh đại diện" />
+                                                                    <img src={rl._idReply.author?.image || "default-avatar.png"} alt="Ảnh đại diện" />
                                                                     <div className="blog-comment_box--reply">
-                                                                        <p className="blog-comment_author">{`${rl._idReply.author.firstName} ${rl._idReply.author.lastName}`}</p>
+                                                                        <p className="blog-comment_author">{rl._idReply.author ? `${rl._idReply.author.firstName} ${rl._idReply.author.lastName}` : "Người dùng đã bị xóa"}</p>
                                                                         <p className="blog-comment_date">{new Date(rl._idReply.createdAt).toLocaleString()}</p>
                                                                         <p className="blog-comment_content">{rl._idReply.content}</p>
                                                                     </div>

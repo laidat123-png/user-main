@@ -47,7 +47,7 @@ export const Blog = () => {
                                         <p className="blog-post_date">Ngày đăng: {new Date(post.createdAt).toLocaleDateString()}</p>
                                         <h2 className="blog-post_title">{post.title}</h2>
                                         <p className="blog-post_author">
-                                            Đăng bởi {post.author ? `${post.author.firstName} ${post.author.lastName}` : "Unknown"}
+                                            Đăng bởi {post.author ? `${post.author.firstName} ${post.author.lastName}` : "Người dùng đã bị xóa"}
                                         </p>
                                         <img className="blog-post_img" src={post.image} alt={post.title} />
                                     </div>
