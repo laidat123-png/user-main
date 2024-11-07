@@ -62,6 +62,7 @@ export const Checkout = () => {
   const [code, setCode] = useState("");
   const [isCode, setIsCode] = useState(false);
   const [loadingCode, setLoadingCode] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("cod"); // Trạng thái lưu trữ phương thức thanh toán
 
   const [address, setAddress] = useState({
     city: "",
@@ -186,12 +187,11 @@ export const Checkout = () => {
         quantity: cart.quantity,
       });
     });
-    const pay = document.querySelector("input.pay:checked").value;
-    data.pay = pay;
-    if (pay === "cod") {
+    data.pay = paymentMethod; // Sử dụng trạng thái paymentMethod
+    if (paymentMethod === "cod") {
       sendRequestOrder(data);
     }
-    if (pay === "vnpay") {
+    if (paymentMethod === "vnpay") {
       bankAccountVnpay(data);
     }
   };
@@ -418,26 +418,20 @@ export const Checkout = () => {
                     className="pay"
                     value="cod"
                     type="radio"
-                    checked
+                    checked={paymentMethod === "cod"}
+                    onChange={() => setPaymentMethod("cod")}
                   />
                   <span>Thanh toán khi nhận hàng</span>
                 </div>
-                <div className="order-paymen_box">
-                  <input
-                    disabled
-                    name="pay"
-                    className="pay"
-                    value="momo"
-                    type="radio"
-                  />
-                  <span>Thanh toán qua momo</span>
-                </div>
+                
                 <div className="order-paymen_box">
                   <input
                     name="pay"
                     className="pay"
                     value="vnpay"
                     type="radio"
+                    checked={paymentMethod === "vnpay"}
+                    onChange={() => setPaymentMethod("vnpay")}
                   />
                   <span>Thanh toán qua vnpay</span>
                 </div>
