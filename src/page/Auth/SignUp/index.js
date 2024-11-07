@@ -20,7 +20,7 @@ export const SignUp = (props) => {
                             {...register("email", {
                                 required: "Trường này là bắt buộc",
                                 pattern: {
-                                    value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                    value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-àáâãèéêìíòóôõùúăđĩũơưạ-ỹ]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                                     message: "Email không đúng định dạng"
                                 },
                                 maxLength: {
@@ -41,7 +41,7 @@ export const SignUp = (props) => {
                             {...register("firstName", {
                                 required: "Trường này là bắt buộc",
                                 pattern: {
-                                    value: /^[A-Za-z]/,
+                                    value: /^[A-Za-zÀ-ỹ]/,
                                     message: "Họ phải bắt đầu bằng chữ cái"
                                 },
                                 maxLength: {
@@ -61,7 +61,7 @@ export const SignUp = (props) => {
                             {...register("lastName", {
                                 required: "Trường này là bắt buộc",
                                 pattern: {
-                                    value: /^[A-Za-z]/,
+                                    value: /^[A-Za-zÀ-ỹ]/,
                                     message: "Tên phải bắt đầu bằng chữ cái"
                                 },
                                 maxLength: {

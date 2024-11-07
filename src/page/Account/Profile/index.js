@@ -29,7 +29,7 @@ export const Profile = (props) => {
                                     {...register("form.firstName", {
                                         required: "Trường này là bắt buộc",
                                         pattern: {
-                                            value: /^[A-Za-z]/,
+                                            value: /^[A-Za-zÀ-ỹ]/,
                                             message: "Họ phải bắt đầu bằng chữ cái"
                                         },
                                         maxLength: {
@@ -48,7 +48,7 @@ export const Profile = (props) => {
                                     {...register("form.lastName", {
                                         required: "Trường này là bắt buộc",
                                         pattern: {
-                                            value: /^[A-Za-z]/,
+                                            value: /^[A-Za-zÀ-ỹ]/,
                                             message: "Tên phải bắt đầu bằng chữ cái"
                                         },
                                         maxLength: {
@@ -97,7 +97,7 @@ export const Profile = (props) => {
                                             message: "Mật khẩu không được vượt quá 12 ký tự"
                                         },
                                         pattern: {
-                                            value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,12}$/,
+                                            value: /^(?=.*[A-Za-zÀ-ỹ])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-zÀ-ỹ\d@$!%*#?&]{8,12}$/,
                                             message: "Mật khẩu phải chứa chữ cái, số và ký tự đặc biệt"
                                         }
                                     })}
