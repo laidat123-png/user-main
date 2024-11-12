@@ -242,8 +242,8 @@ export const Checkout = () => {
                     {...register("name", {
                       required: "Trường này là bắt buộc",
                       pattern: {
-                        value: /^[A-Za-z][A-Za-z\s]*$/,
-                        message: "Họ tên phải bắt đầu bằng chữ cái và không chứa ký tự đặc biệt"
+                        value: /^[A-Za-zÀ-ỹ][A-Za-zÀ-ỹ\s]*$/,
+                        message: "Họ tên phải bắt đầu bằng chữ cái,không chứa ký tự đặc biệt hoặc số"
                       },
                       maxLength: {
                         value: 30,
