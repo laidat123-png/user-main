@@ -217,7 +217,7 @@ export const DetailProduct = () => {
                             <div className="product-tab">
                                 <ul>
                                     <li className={`${!activeTab ? "active" : ""}`} onClick={() => setActiveTab(false)}>Mô tả</li>
-                                    {/* <li className={`${activeTab ? "active" : ""}`} onClick={() => setActiveTab(true)} >Reviews ({review?.length})</li> */}
+                                    <li className={`${activeTab ? "active" : ""}`} onClick={() => setActiveTab(true)} >Reviews ({review?.length})</li>
                                 </ul>
                             </div>
                         </Row>

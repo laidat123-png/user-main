@@ -29,11 +29,11 @@ const Menus = [
     exact: true,
     name: 'TÀI KHOẢN'
   },
-  {
-    to: '/LIENHE',
-    exact: true,
-    name: 'LIÊN HỆ'
-  }
+  // {
+  //   to: '/LIENHE',
+  //   exact: true,
+  //   name: 'LIÊN HỆ'
+  // }
 ]
 export const Header = () => {
   const dispatch = useDispatch()

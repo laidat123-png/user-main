@@ -44,7 +44,7 @@ export const CarouselP = () => {
                 <div className="carousel-content">
                     <p>Nghệ thuật tinh tế của việc đếch quan tâm | Mark Manson</p>
                     <h1>Bài viết review</h1>
-                    <Link to="/CHITIETBAIVIET/664ae33084730131c82cfe79">Chi tiết</Link>
+                    <Link to="/CHITIETBAIVIET/6734cf80befc70557cae9ce6">Chi tiết</Link>
                 </div>
             </div>
         </Carousel>
