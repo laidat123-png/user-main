@@ -1,44 +1,48 @@
-import { BsPlus } from 'react-icons/bs';
-import { BiMinus } from 'react-icons/bi';
-import { formatNumber } from '../../../helpers/formatNumber';
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
-import { toastConfig } from '../../../constants/configToast';
+import { BsPlus } from 'react-icons/bs'; // Import biểu tượng dấu cộng từ react-icons
+import { BiMinus } from 'react-icons/bi'; // Import biểu tượng dấu trừ từ react-icons
+import { formatNumber } from '../../../helpers/formatNumber'; // Import hàm formatNumber để định dạng số
+import { Link } from 'react-router-dom'; // Import Link từ react-router-dom để điều hướng giữa các trang
+import { useEffect, useState } from 'react'; // Import useEffect và useState từ react
+import { useDispatch } from 'react-redux'; // Import useDispatch từ react-redux
+import { toast } from 'react-toastify'; // Import thư viện toast để hiển thị thông báo
+import { toastConfig } from '../../../constants/configToast'; // Import cấu hình toast
 
+// Định nghĩa component CartItem
 export const CartItem = (props) => {
-    const dispatch = useDispatch();
-    const { cart, deleteProductInCartRequest, handleAddAmountProduct } = props;
-    const [amount, setAmount] = useState(0);
-    
+    const dispatch = useDispatch(); // Sử dụng useDispatch để lấy hàm dispatch
+    const { cart, deleteProductInCartRequest, handleAddAmountProduct } = props; // Lấy các props truyền vào component
+    const [amount, setAmount] = useState(0); // Khởi tạo state amount
+
     useEffect(() => {
-        setAmount(cart.quantity);
+        setAmount(cart.quantity); // Thiết lập số lượng sản phẩm khi component được render
     }, [cart]);
 
+    // Hàm xử lý tăng số lượng sản phẩm
     const handleAddAmount = () => {
         if (amount < cart.product.inStock) {
-            setAmount(amount + 1);
-            handleAddAmountProduct(cart.product, amount + 1);
+            setAmount(amount + 1); // Tăng số lượng sản phẩm
+            handleAddAmountProduct(cart.product, amount + 1); // Gọi hàm handleAddAmountProduct
         } else {
-            toast("Số lượng hiện tại cao hơn số lượng hàng tồn!", toastConfig);
+            toast("Số lượng hiện tại cao hơn số lượng hàng tồn!", toastConfig); // Hiển thị thông báo nếu số lượng vượt quá hàng tồn
         }
     };
 
+    // Hàm xử lý giảm số lượng sản phẩm
     const handleMinusAmount = () => {
         if (amount > 1) {
-            setAmount(amount - 1);
-            handleAddAmountProduct(cart.product, amount - 1);
+            setAmount(amount - 1); // Giảm số lượng sản phẩm
+            handleAddAmountProduct(cart.product, amount - 1); // Gọi hàm handleAddAmountProduct
         }
     };
 
+    // Hàm xử lý thay đổi số lượng sản phẩm
     const handleChangeAmount = (e) => {
         const value = parseInt(e.target.value, 10);
         if (value > 0 && value <= cart.product.inStock) {
-            setAmount(value);
-            handleAddAmountProduct(cart.product, value);
+            setAmount(value); // Thiết lập số lượng sản phẩm
+            handleAddAmountProduct(cart.product, value); // Gọi hàm handleAddAmountProduct
         } else if (value > cart.product.inStock) {
-            toast("Số lượng hiện tại cao hơn số lượng hàng tồn!", toastConfig);
+            toast("Số lượng hiện tại cao hơn số lượng hàng tồn!", toastConfig); // Hiển thị thông báo nếu số lượng vượt quá hàng tồn
         }
     };
 

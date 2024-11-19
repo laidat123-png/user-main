@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { Slide } from 'react-slideshow-image';
-import { BsStarHalf, BsStarFill } from 'react-icons/bs';
-import { Category } from '../../components/Category';
-import { useDispatch, useSelector } from 'react-redux';
-import { InnerImageZoom } from 'react-inner-image-zoom';
-import { Link } from 'react-router-dom';
-import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';
+import { useEffect, useState } from 'react'; // Import useEffect và useState từ react
+import { Container, Row, Col } from 'react-bootstrap'; // Import các component Container, Row, Col từ react-bootstrap
+import { Slide } from 'react-slideshow-image'; // Import component Slide từ react-slideshow-image
+import { BsStarHalf, BsStarFill } from 'react-icons/bs'; // Import các biểu tượng từ react-icons
+import { Category } from '../../components/Category'; // Import component Category
+import { useDispatch, useSelector } from 'react-redux'; // Import useDispatch và useSelector từ react-redux
+import { InnerImageZoom } from 'react-inner-image-zoom'; // Import component InnerImageZoom từ react-inner-image-zoom
+import { Link } from 'react-router-dom'; // Import Link từ react-router-dom
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css'; // Import file CSS của InnerImageZoom
 import {
     getOneProductRequest,
     addReviewRequest,
@@ -16,33 +16,34 @@ import {
     setSubTotalCart,
     getProductAlsoLike,
     searchProductByField
-} from '../../actions/actionProducts.js';
-import { toast } from 'react-toastify';
-import { toastConfig } from '../../constants/configToast';
-import { createMarkup } from '../../helpers/createMarkup';
-import { formatNumber } from '../../helpers/formatNumber';
-import 'react-slideshow-image/dist/styles.css'
-import './index.css';
-import { useParams } from 'react-router-dom';
-import { Form } from './Form';
-import { showStars } from '../../helpers/showStars';
-import { Spinner } from '../../components/Spinner';
-import { SkeletonProduct } from './SkeletonProduct';
+} from '../../actions/actionProducts.js'; // Import các action liên quan đến sản phẩm
+import { toast } from 'react-toastify'; // Import thư viện toast để hiển thị thông báo
+import { toastConfig } from '../../constants/configToast'; // Import cấu hình toast
+import { createMarkup } from '../../helpers/createMarkup'; // Import hàm createMarkup để tạo nội dung HTML an toàn
+import { formatNumber } from '../../helpers/formatNumber'; // Import hàm formatNumber để định dạng số
+import 'react-slideshow-image/dist/styles.css'; // Import file CSS của react-slideshow-image
+import './index.css'; // Import file CSS cho component
+import { useParams } from 'react-router-dom'; // Import useParams từ react-router-dom để lấy tham số từ URL
+import { Form } from './Form'; // Import component Form
+import { showStars } from '../../helpers/showStars'; // Import hàm showStars để hiển thị sao đánh giá
+import { Spinner } from '../../components/Spinner'; // Import component Spinner để hiển thị biểu tượng loading
+import { SkeletonProduct } from './SkeletonProduct'; // Import component SkeletonProduct để hiển thị khi đang tải sản phẩm
 
+// Định nghĩa component DetailProduct
 export const DetailProduct = () => {
-    const listCart = useSelector(state => state.cart);
-    const params = useParams();
-    const isLoadingCmt = useSelector(state => state.loading.loadingcmt);
-    const dispatch = useDispatch();
-    const [activeTab, setActiveTab] = useState(false);
-    const product = useSelector(state => state.products.product);
-    const listProductRelated = useSelector(state => state.products.productRelated) || [];
-    const listProductAlsoLike = useSelector(state => state.products.productAlsoLike) || [];
-    const [quantity, setQuantity] = useState(1);
-    const review = useSelector(state => state.review) || [];
-    const loading = useSelector(state => state.loading.loadingdt);
-    const [loadingBtn, setLoadingBtn] = useState(false);
-    const user = useSelector(state => state.user);
+    const listCart = useSelector(state => state.cart); // Lấy danh sách sản phẩm trong giỏ hàng từ state
+    const params = useParams(); // Lấy tham số từ URL
+    const isLoadingCmt = useSelector(state => state.loading.loadingcmt); // Lấy trạng thái loading của bình luận từ state
+    const dispatch = useDispatch(); // Sử dụng useDispatch để lấy hàm dispatch
+    const [activeTab, setActiveTab] = useState(false); // Khởi tạo state activeTab
+    const product = useSelector(state => state.products.product); // Lấy thông tin sản phẩm từ state
+    const listProductRelated = useSelector(state => state.products.productRelated) || []; // Lấy danh sách sản phẩm liên quan từ state
+    const listProductAlsoLike = useSelector(state => state.products.productAlsoLike) || []; // Lấy danh sách sản phẩm tương tự từ state
+    const [quantity, setQuantity] = useState(1); // Khởi tạo state quantity
+    const review = useSelector(state => state.review) || []; // Lấy danh sách đánh giá từ state
+    const loading = useSelector(state => state.loading.loadingdt); // Lấy trạng thái loading của sản phẩm từ state
+    const [loadingBtn, setLoadingBtn] = useState(false); // Khởi tạo state loadingBtn
+    const user = useSelector(state => state.user); // Lấy thông tin người dùng từ state
     const properties = {
         duration: 5000,
         autoplay: false,
@@ -51,48 +52,48 @@ export const DetailProduct = () => {
         infinite: true,
         easing: "ease",
         indicators: (i) => <img key={product.urls ? product.urls[i]._id : i + 1} className="slide-image_active" src={product.urls ? product.urls[i].url : ""} alt={product.title} />
-    };
+    }; // Thiết lập các thuộc tính cho component Slide
     useEffect(() => {
-        getOneProductRequest(dispatch, params.id);
+        getOneProductRequest(dispatch, params.id); // Gọi action để lấy thông tin sản phẩm
         window.scrollTo({
             top: 0,
             behavior: "smooth"
-        });
+        }); // Cuộn trang lên đầu khi component được render
         return () => {
-            dispatch(getProductAlsoLike(false));
+            dispatch(getProductAlsoLike(false)); // Reset danh sách sản phẩm tương tự khi component bị unmount
         }
     }, [params.id])
     const onSubmitReview = (data) => {
         if (user._id) {
-            addReviewRequest(dispatch, data, product._id);
+            addReviewRequest(dispatch, data, product._id); // Gọi action để thêm đánh giá
         } else {
-            toast("Hãy đăng nhập để thêm review", toastConfig);
+            toast("Hãy đăng nhập để thêm review", toastConfig); // Hiển thị thông báo yêu cầu đăng nhập
         }
     }
     const filterProductByType = (idType) => {
-        searchProductByField(dispatch, { types: idType, title: "" })
+        searchProductByField(dispatch, { types: idType, title: "" }) // Gọi action để lọc sản phẩm theo loại
     }
     const addProductToCart = () => {
         if (user._id) {
-            setLoadingBtn(true);
+            setLoadingBtn(true); // Thiết lập trạng thái loadingBtn
             addProductToCartRequest(product, quantity)
                 .then(data => {
                     if (data.status === "success") {
-                        dispatch(addCart(product, quantity, data.idCart));
-                        dispatch(toggleCart(true));
-                        dispatch(setSubTotalCart(data.subTotal));
-                        setLoadingBtn(false);
-                        setQuantity(1);
+                        dispatch(addCart(product, quantity, data.idCart)); // Dispatch action addCart
+                        dispatch(toggleCart(true)); // Dispatch action toggleCart
+                        dispatch(setSubTotalCart(data.subTotal)); // Dispatch action setSubTotalCart
+                        setLoadingBtn(false); // Tắt trạng thái loadingBtn
+                        setQuantity(1); // Thiết lập lại số lượng sản phẩm
                     } else {
-                        toast.success("Thêm vào giỏ hàng thất bại !", toastConfig)
-                        setLoadingBtn(false);
+                        toast.success("Thêm vào giỏ hàng thất bại !", toastConfig); // Hiển thị thông báo thất bại
+                        setLoadingBtn(false); // Tắt trạng thái loadingBtn
                     }
                 })
                 .catch(err => {
-                    setLoadingBtn(false);
+                    setLoadingBtn(false); // Tắt trạng thái loadingBtn
                 })
         } else {
-            toast("Hãy đăng nhập để thêm vào giỏ hàng", toastConfig);
+            toast("Hãy đăng nhập để thêm vào giỏ hàng", toastConfig); // Hiển thị thông báo yêu cầu đăng nhập
         }
     }
     const checkProductInCart = () => {
@@ -100,15 +101,15 @@ export const DetailProduct = () => {
         listCart.forEach((cart, i) => {
             if (cart.product._id === product._id) index = i;
         })
-        return index > -1 ? true : false;
+        return index > -1 ? true : false; // Kiểm tra xem sản phẩm có trong giỏ hàng không
     }
 
     const handleChangeQuantity = (e) => {
         const value = parseInt(e.target.value, 10);
         if (value > 0 && value <= product.inStock) {
-            setQuantity(value);
+            setQuantity(value); // Thiết lập số lượng sản phẩm
         } else if (value > product.inStock) {
-            toast("Số lượng hiện tại cao hơn số lượng hàng tồn!", toastConfig);
+            toast("Số lượng hiện tại cao hơn số lượng hàng tồn!", toastConfig); // Hiển thị thông báo nếu số lượng vượt quá hàng tồn
         }
     };
 

@@ -1,6 +1,7 @@
 import { Spinner } from '../../../components/Spinner';
-import { useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form'; 
 
+// Định nghĩa component SignUp
 export const SignUp = (props) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { changeStatus, onSubmitRegister, isLoading } = props;
@@ -21,17 +22,17 @@ export const SignUp = (props) => {
                                 required: "Trường này là bắt buộc",
                                 pattern: {
                                     value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-àáâãèéêìíòóôõùúăđĩũơưạ-ỹ]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                                    message: "Email không đúng định dạng"
+                                    message: "Email không đúng định dạng" 
                                 },
                                 maxLength: {
                                     value: 30,
-                                    message: "Địa chỉ email không quá 30 kí tự"
+                                    message: "Địa chỉ email không quá 30 kí tự" 
                                 }
                             })}
                             type="text"
                         />
                     </div>
-                    {errors.email && <span className="error-auth">{errors.email.message}</span>}
+                    {errors.email && <span className="error-auth">{errors.email.message}</span>} 
                 </div>
                 <div className="auth-form_group">
                     <label>Họ</label>
@@ -39,7 +40,7 @@ export const SignUp = (props) => {
                         <input
                             type="text"
                             {...register("firstName", {
-                                required: "Trường này là bắt buộc",
+                                required: "Trường này là bắt buộc", 
                                 pattern: {
                                     value: /^[A-Za-zÀ-ỹ]/,
                                     message: "Họ phải bắt đầu bằng chữ cái"
@@ -59,10 +60,10 @@ export const SignUp = (props) => {
                         <input
                             type="text"
                             {...register("lastName", {
-                                required: "Trường này là bắt buộc",
+                                required: "Trường này là bắt buộc", 
                                 pattern: {
                                     value: /^[A-Za-zÀ-ỹ]/,
-                                    message: "Tên phải bắt đầu bằng chữ cái"
+                                    message: "Tên phải bắt đầu bằng chữ cái" 
                                 },
                                 maxLength: {
                                     value: 30,
@@ -95,7 +96,7 @@ export const SignUp = (props) => {
                             })}
                         />
                     </div>
-                    {errors.phone && <span className="error-auth">{errors.phone.message}</span>}
+                    {errors.phone && <span className="error-auth">{errors.phone.message}</span>} 
                 </div>
                 <div className="auth-form_group">
                     <label>Mật khẩu</label>
@@ -103,7 +104,7 @@ export const SignUp = (props) => {
                         <input
                             type="password"
                             {...register("password", {
-                                required: "Trường này là bắt buộc",
+                                required: "Trường này là bắt buộc", 
                                 minLength: {
                                     value: 6,
                                     message: "Mật khẩu phải chứa ít nhất 6 ký tự"
@@ -114,7 +115,7 @@ export const SignUp = (props) => {
                                 },
                                 pattern: {
                                     value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,12}$/,
-                                    message: "Mật khẩu phải chứa chữ cái, số và ký tự đặc biệt"
+                                    message: "Mật khẩu phải chứa chữ cái, số và ký tự đặc biệt" 
                                 }
                             })}
                         />

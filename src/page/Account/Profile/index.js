@@ -1,15 +1,16 @@
-import { Row, Col } from "react-bootstrap";
-import { useEffect, useRef } from "react";
-import { useForm } from 'react-hook-form';
+import { Row, Col } from "react-bootstrap"; // Import các component Row và Col từ react-bootstrap
+import { useEffect, useRef } from "react"; // Import useEffect và useRef từ react
+import { useForm } from 'react-hook-form'; // Import useForm từ react-hook-form để quản lý form
 
+// Định nghĩa component Profile
 export const Profile = (props) => {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const password = useRef({});
-    const fileRef = useRef();
-    const { user, onSubmitEditProfile, image, onChangeFileImage, statusProfile, setStatusProfile } = props;
+    const { register, handleSubmit, reset, formState: { errors } } = useForm(); // Sử dụng useForm để quản lý form
+    const password = useRef({}); // Sử dụng useRef để tạo tham chiếu cho mật khẩu
+    const fileRef = useRef(); // Sử dụng useRef để tạo tham chiếu cho input file
+    const { user, onSubmitEditProfile, image, onChangeFileImage, statusProfile, setStatusProfile } = props; // Lấy các props truyền vào component
 
     useEffect(() => {
-        reset("form");
+        reset("form"); // Reset form khi statusProfile thay đổi
     }, [statusProfile]);
 
     return (
@@ -21,7 +22,7 @@ export const Profile = (props) => {
                         <form onSubmit={handleSubmit(onSubmitEditProfile)}>
                             <div className="profile_form-group">
                                 <label>Email: </label>
-                                <p>{user.email}</p>
+                                <p>{user.email}</p> {/* Hiển thị email của người dùng */}
                             </div>
                             <div className="profile_form-group">
                                 <label>Họ: </label>
@@ -38,8 +39,8 @@ export const Profile = (props) => {
                                         }
                                     })}
                                     type="text"
-                                /> : <span>{user.firstName}</span>}
-                                {errors.form?.firstName && <p className="error-message">{errors.form.firstName.message}</p>}
+                                /> : <span>{user.firstName}</span>} {/* Hiển thị họ của người dùng hoặc input để chỉnh sửa */}
+                                {errors.form?.firstName && <p className="error-message">{errors.form.firstName.message}</p>} {/* Hiển thị thông báo lỗi nếu có */}
                             </div>
                             <div className="profile_form-group">
                                 <label>Tên: </label>
@@ -56,8 +57,8 @@ export const Profile = (props) => {
                                             message: "Tên không được vượt quá 30 ký tự"
                                         }
                                     })}
-                                /> : <span>{user.lastName}</span>}
-                                {errors.form?.lastName && <p className="error-message">{errors.form.lastName.message}</p>}
+                                /> : <span>{user.lastName}</span>} {/* Hiển thị tên của người dùng hoặc input để chỉnh sửa */}
+                                {errors.form?.lastName && <p className="error-message">{errors.form.lastName.message}</p>} {/* Hiển thị thông báo lỗi nếu có */}
                             </div>
                             <div className="profile_form-group">
                                 <label>Số điện thoại: </label>
@@ -78,8 +79,8 @@ export const Profile = (props) => {
                                             message: "Số điện thoại không được vượt quá 10 số"
                                         }
                                     })}
-                                /> : <span>{user.phone}</span>}
-                                {errors.form?.phone && <p className="error-message">{errors.form.phone.message}</p>}
+                                /> : <span>{user.phone}</span>} {/* Hiển thị số điện thoại của người dùng hoặc input để chỉnh sửa */}
+                                {errors.form?.phone && <p className="error-message">{errors.form.phone.message}</p>} {/* Hiển thị thông báo lỗi nếu có */}
                             </div>
                             {statusProfile === true ? <div className="profile_form-group">
                                 <label>Mật khẩu: </label>
@@ -87,7 +88,6 @@ export const Profile = (props) => {
                                     type="password"
                                     ref={password}
                                     {...register("form.password", {
-                                        
                                         minLength: {
                                             value: 6,
                                             message: "Mật khẩu phải chứa ít nhất 6 ký tự"
@@ -103,7 +103,7 @@ export const Profile = (props) => {
                                     })}
                                     placeholder="Bỏ trống nếu không đổi..."
                                 />
-                                {errors.form?.password && <p className="error-message">{errors.form.password.message}</p>}
+                                {errors.form?.password && <p className="error-message">{errors.form.password.message}</p>} {/* Hiển thị thông báo lỗi nếu có */}
                             </div> : ""}
                             {statusProfile === true ? <div className="profile_form-group">
                                 <label>Nhập lại mật khẩu: </label>
@@ -114,11 +114,11 @@ export const Profile = (props) => {
                                 />
                             </div> : ""}
                             <div className="profile_form-btn">
-                                {statusProfile === true ? <button>Lưu</button> : ""}
+                                {statusProfile === true ? <button>Lưu</button> : ""} {/* Hiển thị nút Lưu nếu statusProfile là true */}
                             </div>
                         </form>
                         {statusProfile === false ? <button className="btn-profile_edit" onClick={() => setStatusProfile(true)}>Sửa</button>
-                            : <button className="btn-profile_edit" onClick={() => setStatusProfile(false)}>Quay lại</button>}
+                            : <button className="btn-profile_edit" onClick={() => setStatusProfile(false)}>Quay lại</button>} {/* Hiển thị nút Sửa hoặc Quay lại tùy thuộc vào trạng thái statusProfile */}
                     </div>
                 </Col>
                 <Col lg={4}>
@@ -126,15 +126,15 @@ export const Profile = (props) => {
                         <img
                             src={image}
                             alt="Ảnh đại diện"
-                        />
-                        {statusProfile === true ? <p onClick={() => fileRef.current.click()}>Chọn Ảnh</p> : ""}
+                        /> {/* Hiển thị ảnh đại diện */}
+                        {statusProfile === true ? <p onClick={() => fileRef.current.click()}>Chọn Ảnh</p> : ""} {/* Hiển thị nút Chọn Ảnh nếu statusProfile là true */}
                         <input
                             type="file"
                             accept="image/png, image/jpeg"
                             hidden
                             ref={fileRef}
                             onChange={onChangeFileImage}
-                        />
+                        /> {/* Input để chọn file ảnh, ẩn đi và chỉ hiển thị khi người dùng nhấp vào nút Chọn Ảnh */}
                     </div>
                 </Col>
             </Row>
