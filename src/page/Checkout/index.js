@@ -35,12 +35,19 @@ export const Checkout = () => {
           {
             Authorization: `${sessionStorage.getItem("token")}`,
           }
-        ).then(({ data }) => {
-          const productDetail = data.listCart.map((cart) => ({
-            productID: cart.product._id,
-            quantity: cart.quantity,
-          }));
-          sendRequestOrder({ ...info, productDetail });
+        ).then((response) => {
+          if (response && response.data) {
+            const productDetail = response.data.listCart.map((cart) => ({
+              productID: cart.product._id,
+              quantity: cart.quantity,
+            }));
+            sendRequestOrder({ ...info, productDetail });
+          } else {
+            toast.error("Không thể lấy thông tin giỏ hàng!", toastConfig);
+          }
+        }).catch((error) => {
+          toast.error("Lỗi khi gọi API giỏ hàng!", toastConfig);
+          console.error("Error fetching cart data:", error);
         });
       } else {
         toast.error("Thanh toán thất bại!", toastConfig);
@@ -86,17 +93,17 @@ export const Checkout = () => {
   };
   const getListDistrict = async (idCity) => {
     const { data } = await axios({
-      url: `https://vapi.vnappmob.com/api/province/district/${idCity}`,
+      url: `https://provinces.open-api.vn/api/p/${idCity}?depth=2`,
       method: "GET",
     });
-    return data.results;
+    return data.districts;
   };
   const getListWard = async (idDistrict) => {
     const { data } = await axios({
-      url: `https://vapi.vnappmob.com/api/province/ward/${idDistrict}`,
+      url: `https://provinces.open-api.vn/api/d/${idDistrict}?depth=2`,
       method: "GET",
     });
-    return data.results;
+    return data.wards;
   };
   const checkCoupon = async () => {
     if (code !== "") {
@@ -119,16 +126,19 @@ export const Checkout = () => {
   useEffect(() => {
     getListCity().then((data) => {
         setListCity(data);
+    }).catch((error) => {
+      toast.error("Lỗi khi lấy danh sách thành phố!", toastConfig);
+      console.error("Error fetching cities:", error);
     });
     getListCart();
   }, []);
   const getListCity = async () => {
     try {
       const { data } = await axios({
-        url: "https://cors-anywhere.herokuapp.com/http://vapi.vnappmob.com/api/province",
+        url: "https://provinces.open-api.vn/api/",
         method: "GET",
       });
-      return data.results;
+      return data;
     } catch (error) {
       console.error("Error fetching cities:", error); // Xử lý lỗi nếu có
       throw error; // Rethrow the error after logging it
@@ -156,15 +166,21 @@ export const Checkout = () => {
   };
   const sendRequestOrder = async (form) => {
     setLoadingOrder(true);
-    const { data } = await callAPI("/orders", "POST", form);
-    if (data.status === "success") {
-      history.push("/Order-received", { ...data.order, email: user.email });
-      dispatch(resetCart());
-      updateAllCartRequest(dispatch, []);
+    try {
+      const { data } = await callAPI("/orders", "POST", form);
+      if (data.status === "success") {
+        history.push("/Order-received", { ...data.order, email: user.email });
+        dispatch(resetCart());
+        updateAllCartRequest(dispatch, []);
+        setLoadingOrder(false);
+      } else {
+        setLoadingOrder(false);
+        toast.error("Đặt hàng thất bại!", toastConfig);
+      }
+    } catch (error) {
       setLoadingOrder(false);
-    } else {
-      setLoadingOrder(false);
-      toast.error("Đặt hàng thất bại!", toastConfig);
+      toast.error("Lỗi khi gửi yêu cầu đặt hàng!", toastConfig);
+      console.error("Error sending order request:", error);
     }
   };
   const onSubmitForm = (data) => {
@@ -200,6 +216,9 @@ export const Checkout = () => {
       Authorization: `${sessionStorage.getItem("token")}`,
     }).then(({ data }) => {
       window.location.href = data;
+    }).catch((error) => {
+      toast.error("Lỗi khi gọi API thanh toán!", toastConfig);
+      console.error("Error calling payment API:", error);
     });
   };
   const cancelCoupon = () => {
@@ -281,42 +300,42 @@ export const Checkout = () => {
                   <label>Tỉnh/Thành phố*</label>
                   <select onChange={handleOnChangeCity}>
                     <option value="0">Chọn tỉnh/thành phố</option>
-                    {listCity.map((city) => {
+                    {listCity && listCity.length > 0 ? listCity.map((city) => {
                       return (
-                        <option key={city.province_id} value={city.province_id}>
-                          {city.province_name}
+                        <option key={city.code} value={city.code}>
+                          {city.name}
                         </option>
                       );
-                    })}
+                    }) : <option value="0">Không có dữ liệu</option>}
                   </select>
                 </div>
                 <div className="billing-form_group">
                   <label>Quận/huyện*</label>
                   <select onChange={handleOnChangeDistrict}>
                     <option>Chọn quận/huyện</option>
-                    {listDistrict.map((district) => {
+                    {listDistrict && listDistrict.length > 0 ? listDistrict.map((district) => {
                       return (
                         <option
-                          key={district.district_id}
-                          value={district.district_id}
+                          key={district.code}
+                          value={district.code}
                         >
-                          {district.district_name}
+                          {district.name}
                         </option>
                       );
-                    })}
+                    }) : <option value="0">Không có dữ liệu</option>}
                   </select>
                 </div>
                 <div className="billing-form_group">
                   <label>Phường/Xã*</label>
                   <select onChange={handleOnChangeWard}>
                     <option>Chọn phường/xã</option>
-                    {listWard.map((ward) => {
+                    {listWard && listWard.length > 0 ? listWard.map((ward) => {
                       return (
-                        <option key={ward.ward_id} value={ward.ward_id}>
-                          {ward.ward_name}
+                        <option key={ward.code} value={ward.code}>
+                          {ward.name}
                         </option>
                       );
-                    })}
+                    }) : <option value="0">Không có dữ liệu</option>}
                   </select>
                 </div>
                 <div className="billing-form_group">
@@ -391,17 +410,9 @@ export const Checkout = () => {
                   <p>{formatNumber(subTotal)}đ</p>
                 </div>
                 <div className="order-review_box">
-                  <p>Mã giảm giá {coupon ? `:${coupon.code}` : ""}</p>
-                  <p>
-                    {coupon
-                      ? `-${formatNumber(coupon.discount)}${coupon.type}`
-                      : "Nhập mã để giảm giá"}
-                  </p>
-                </div>
-                <div className="order-review_box">
                   <p>Phí ship</p>
                   <p>
-                    {listDistrict.length > 0
+                    {listDistrict && listDistrict.length > 0
                       ? "30.000₫"
                       : "Nhập địa chỉ để tính phí ship"}
                   </p>
