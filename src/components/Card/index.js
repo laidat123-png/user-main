@@ -56,7 +56,7 @@ export const Card = (props) => {
     const checkExist = (id, arr) => {
         let bool = false;
         arr.forEach(elm => {
-            if (elm.product._id === id) {
+            if (elm.product && elm.product._id === id) {
                 bool = true;
             }
         })

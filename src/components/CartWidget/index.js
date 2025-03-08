@@ -26,18 +26,28 @@ export const CartWidget = () => {
                 {carts?.map(cart => { // Duyệt qua danh sách sản phẩm trong giỏ hàng
                     return (
                         <li className="cartWidget-item" key={cart._id}> {/* Hiển thị từng sản phẩm trong giỏ hàng */}
-                            <img src={cart.product.urls[0]?.url} alt={cart.product.title} /> {/* Hiển thị hình ảnh sản phẩm */}
+                            {cart.product?.urls?.[0]?.url ? (
+                                <img src={cart.product.urls[0].url} alt={cart.product.title} /> 
+                            ) : (
+                                <img src="default-image-url" alt="default" /> // Thay thế bằng URL của hình ảnh mặc định
+                            )}
                             <div className="cartWidget-item_info">
                                 <div className="cartWidget-item_name">
-                                    <Link to={`/CHITIETSANPHAM/${cart.product._id}`}>{cart.product.title}</Link> {/* Liên kết đến chi tiết sản phẩm */}
-                                    <span onClick={() => deleteProductInCartRequest(dispatch, cart.product._id)}> {/* Xóa sản phẩm khỏi giỏ hàng khi nhấp vào */}
-                                        <GrFormClose fontSize="1.2rem" /> {/* Hiển thị biểu tượng đóng */}
-                                    </span>
+                                    {cart.product ? (
+                                        <>
+                                            <Link to={`/CHITIETSANPHAM/${cart.product._id}`}>{cart.product.title}</Link> {/* Liên kết đến chi tiết sản phẩm */}
+                                            <span onClick={() => deleteProductInCartRequest(dispatch, cart.product._id)}> {/* Xóa sản phẩm khỏi giỏ hàng khi nhấp vào */}
+                                                <GrFormClose fontSize="1.2rem" /> {/* Hiển thị biểu tượng đóng */}
+                                            </span>
+                                        </>
+                                    ) : (
+                                        <span>Sản phẩm không tồn tại</span>
+                                    )}
                                 </div>
                                 <div className="cartWidget-item_price">
                                     <span>{cart.quantity} x</span> {/* Hiển thị số lượng sản phẩm */}
-                                    {cart.product.sale > 0 ? <span className="cartWidget-item_sale">{formatNumber(cart.product.price)}</span> : ""} {/* Hiển thị giá gốc nếu có giảm giá */}
-                                    {cart.product.sale > 0 ? <span>{formatNumber(cart.product.price - (cart.product.price * cart.product.sale / 100))}₫</span> : <span>{formatNumber(cart.product.price)}₫</span>} {/* Hiển thị giá sau khi giảm */}
+                                    {cart.product?.sale > 0 ? <span className="cartWidget-item_sale">{formatNumber(cart.product.price)}</span> : ""} {/* Hiển thị giá gốc nếu có giảm giá */}
+                                    {cart.product?.sale > 0 ? <span>{formatNumber(cart.product.price - (cart.product.price * cart.product.sale / 100))}₫</span> : <span>{formatNumber(cart.product?.price)}₫</span>} {/* Hiển thị giá sau khi giảm */}
                                 </div>
                             </div>
                         </li>
@@ -47,7 +57,7 @@ export const CartWidget = () => {
             <div className="cartWidget-footer">
                 <p className="cartWidget-total">
                     <span>TỔNG TIỀN:</span> {/* Hiển thị tổng tiền */}
-                    <span>{formatNumber(carts?.reduce((total, cart) => total + ((cart.product.sale > 0 ? cart.product.price - (cart.product.price * cart.product.sale / 100) : cart.product.price) * cart.quantity), 0))}₫</span> {/* Tính và hiển thị tổng tiền của giỏ hàng */}
+                    <span>{formatNumber(carts?.reduce((total, cart) => total + ((cart.product?.sale > 0 ? cart.product.price - (cart.product.price * cart.product.sale / 100) : cart.product?.price) * cart.quantity), 0))}₫</span> {/* Tính và hiển thị tổng tiền của giỏ hàng */}
                 </p>
                 <div className="cartWidget-btn">
                     <Link to="/Cart" onClick={() => dispatch(toggleCart(false))}>Xem giỏ hàng</Link> {/* Liên kết đến trang giỏ hàng và đóng giỏ hàng */}
