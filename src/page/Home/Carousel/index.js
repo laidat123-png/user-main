@@ -15,13 +15,13 @@ export const CarouselP = () => {
             <div>
                 <img
                     className="carousel-img"
-                    src="https://vietchiase.net/wp-content/uploads/2020/05/review-sach-hay-5-centimet-tren-giay.jpg"
-                    alt="5 centimet trên giây"
+                    src="Bia.jpg"
+                    alt="Thiên văn học"
                 />
                 <div className="carousel-content">
-                    <p>Sách mới</p> {/* Hiển thị nhãn "Sách mới" */}
-                    <h1>5 centimet trên giây</h1> {/* Hiển thị tiêu đề "5 centimet trên giây" */}
-                    <Link to="/CHITIETSANPHAM/67192a27a73a0b79b0876a17">Chi tiết</Link> {/* Liên kết đến chi tiết sản phẩm */}
+                    <p>Sách Mới</p> {/* Hiển thị nhãn "Sách mới" */}
+                    <h1>Thiên văn học</h1> {/* Hiển thị tiêu đề */}
+                    <Link to="/CHITIETSANPHAM/67cc26ada47e045f6443d211">Chi tiết</Link> {/* Liên kết đến chi tiết sản phẩm */}
                 </div>
             </div>
             <div>
