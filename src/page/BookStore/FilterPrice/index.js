@@ -1,6 +1,8 @@
 import { useState } from "react"; // Import useState từ react
 import InputRange from 'react-input-range'; // Import component InputRange từ react-input-range
 import 'react-input-range/lib/css/index.css'; // Import file CSS của react-input-range
+import CompositeFilter from './CompositeFilter'; // Import CompositeFilter
+import PriceFilter from './PriceFilter'; // Import PriceFilter
 
 // Định nghĩa component FilterPrice
 export const FilterPrice = (props) => {
@@ -14,6 +16,8 @@ export const FilterPrice = (props) => {
         min: 0,
         max: 99999999
     }); // Khởi tạo state filterPrice để quản lý giá lọc
+
+    const compositeFilter = new CompositeFilter();
 
     // Hàm reset bộ lọc
     const onReset = () => {
@@ -29,12 +33,20 @@ export const FilterPrice = (props) => {
         setSelectedRange(e.target.value); // Thiết lập khoảng giá được chọn
     };
 
+    // Hàm xử lý khi submit form
+    const handleSubmit = (e, price) => {
+        e.preventDefault();
+        compositeFilter.addFilter(new PriceFilter(price.min, price.max));
+        const result = compositeFilter.applyFilter();
+        onSubmitFilterPrice(e, result);
+    };
+
     return (
         <div className="filter-price">
             <p className="filter-price_titlea">
                 TÌM KIẾM VỚI GIÁ
             </p>
-            <form onSubmit={(e) => onSubmitFilterPrice(e, initPrice)}> {/* Gọi hàm onSubmitFilterPrice khi form được submit */}
+            <form onSubmit={(e) => handleSubmit(e, initPrice)}> {/* Gọi hàm handleSubmit khi form được submit */}
                 <div className="form-group">
                     <InputRange
                         maxValue={500000} // Giá trị tối đa của khoảng giá
@@ -55,7 +67,7 @@ export const FilterPrice = (props) => {
             <p className="filter-price_titleb">
                 LỌC THEO GIÁ
             </p>
-            <form onSubmit={(e) => onSubmitFilterPrice(e, filterPrice)}> {/* Gọi hàm onSubmitFilterPrice khi form được submit */}
+            <form onSubmit={(e) => handleSubmit(e, filterPrice)}> {/* Gọi hàm handleSubmit khi form được submit */}
                 <div className="form-group">
                     <label className="checkbox-label">
                         <input
