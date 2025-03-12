@@ -2,10 +2,13 @@ import './index.css';
 import { SignIn } from './SignIn'; 
 import { SignUp } from './SignUp'; 
 import { GrClose } from 'react-icons/gr'; 
-import { useState } from 'react'; 
+import { useState, useEffect } from 'react'; 
 import { signIn, signUp } from '../../actions/actionAuth'; 
 import { useDispatch, useSelector } from 'react-redux'; 
 import { useHistory } from 'react-router'; 
+import AuthMediator from './AuthMediator';
+
+const mediator = new AuthMediator();
 
 // Định nghĩa component Auth
 export const Auth = () => {
@@ -13,6 +16,10 @@ export const Auth = () => {
     const [status, setStatus] = useState(false); // Khởi tạo state status
     const history = useHistory(); // Sử dụng useHistory để điều hướng giữa các trang
     const dispatch = useDispatch(); // Sử dụng useDispatch để lấy hàm dispatch
+
+    useEffect(() => {
+        mediator.register('Auth', { changeStatus });
+    }, []);
 
     // Hàm thay đổi trạng thái đăng nhập/đăng ký
     const changeStatus = (bool) => {
@@ -40,11 +47,13 @@ export const Auth = () => {
             </div>
             {status ?
                 <SignIn
+                    mediator={mediator}
                     onSubmitLogin={onSubmitLogin}
                     changeStatus={changeStatus}
                     isLoading={isLoading}
                 /> :
                 <SignUp
+                    mediator={mediator}
                     onSubmitRegister={onSubmitRegister}
                     changeStatus={changeStatus}
                     isLoading={isLoading}

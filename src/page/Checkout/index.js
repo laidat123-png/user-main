@@ -13,20 +13,21 @@ import { toast } from "react-toastify";
 import { toastConfig } from "../../constants/configToast";
 import { updateAllCartRequest, resetCart } from "../../actions/actionProducts";
 import { useLocation } from "react-router-dom";
+import Product from './Product';
+import Cart from './Cart';
+import PriceCalculatorVisitor from './PriceCalculatorVisitor';
 
 export const Checkout = () => {
-  const location = useLocation(); // Lấy đối tượng location từ react-router-dom
+  const location = useLocation();
   const getValueQuery = (name) => {
     const query = new URLSearchParams(location.search);
     const queryValue = query.get(name);
     return queryValue;
   };
 
-  //Xử lí sau khi thanh toán xong
   const info = JSON.parse(getValueQuery("vnp_OrderInfo"));
   useEffect(() => {
     if (getValueQuery("vnp_ResponseCode")) {
-      //Thanh toán thành công
       if (getValueQuery("vnp_ResponseCode") === "00") {
         callAPI(
           `/user/cart/all`,
@@ -69,7 +70,7 @@ export const Checkout = () => {
   const [code, setCode] = useState("");
   const [isCode, setIsCode] = useState(false);
   const [loadingCode, setLoadingCode] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState("cod"); // Trạng thái lưu trữ phương thức thanh toán
+  const [paymentMethod, setPaymentMethod] = useState("cod");
 
   const [address, setAddress] = useState({
     city: "",
@@ -140,8 +141,8 @@ export const Checkout = () => {
       });
       return data;
     } catch (error) {
-      console.error("Error fetching cities:", error); // Xử lý lỗi nếu có
-      throw error; // Rethrow the error after logging it
+      console.error("Error fetching cities:", error);
+      throw error;
     }
   };
   const handleOnChangeCity = (e) => {
@@ -184,10 +185,6 @@ export const Checkout = () => {
     }
   };
   const onSubmitForm = (data) => {
-    // if (listCity.length === 0 || listDistrict.length === 0 || listWard.length === 0) {
-    //     toast.error("Vui lòng chọn địa chỉ", toastConfig);
-    //     return;
-    // }
     if (coupon) {
       data.saleCode = coupon._id;
     }
@@ -203,7 +200,7 @@ export const Checkout = () => {
         quantity: cart.quantity,
       });
     });
-    data.pay = paymentMethod; // Sử dụng trạng thái paymentMethod
+    data.pay = paymentMethod;
     if (paymentMethod === "cod") {
       sendRequestOrder(data);
     }
@@ -227,23 +224,13 @@ export const Checkout = () => {
   };
 
   const total = () => {
-    if (coupon && listDistrict.length !== 0) {
-      let sale =
-        coupon.type === "đ"
-          ? subTotal - coupon.discount
-          : subTotal - (subTotal * coupon.discount) / 100;
-      return Math.ceil(sale + 30000);
-    } else {
-      if (coupon)
-        return Math.ceil(
-          coupon.type === "đ"
-            ? subTotal - coupon.discount
-            : subTotal - (subTotal * coupon.discount) / 100
-        );
-      if (listDistrict.length !== 0) return Math.ceil(subTotal + 30000);
-      return Math.ceil(subTotal);
-    }
+    const products = listCart.map(cart => new Product(cart.product._id, cart.product.title, cart.product.price, cart.product.sale, cart.quantity));
+    const cart = new Cart(products, listDistrict.length !== 0 ? 30000 : 0, coupon ? (coupon.type === "đ" ? coupon.discount : (subTotal * coupon.discount) / 100) : 0);
+    const visitor = new PriceCalculatorVisitor();
+    cart.accept(visitor);
+    return Math.ceil(visitor.getTotalPrice());
   };
+
   return (
     <div className="checkout_wrap">
       <Container fluid>

@@ -1,19 +1,27 @@
 import { Spinner } from '../../../components/Spinner';
 import { useForm } from 'react-hook-form'; 
+import { useEffect } from 'react'; // Import useEffect từ React
 
 // Định nghĩa component SignUp
-export const SignUp = (props) => {
+export const SignUp = ({ mediator, changeStatus, onSubmitRegister, isLoading }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { changeStatus, onSubmitRegister, isLoading } = props;
+
+    useEffect(() => {
+        mediator.register('SignUp', { onSubmitRegister });
+    }, [mediator, onSubmitRegister]);
+
+    const handleSubmitForm = (data) => {
+        mediator.notify('SignUp', 'signUp', data);
+    };
 
     return (
         <div className="form-container">
             <h2 className="auth-title">Đăng ký</h2>
             <div className="auth-des">
                 <p className="auth-meta">Bạn là thành viên ?</p>
-                <span onClick={() => changeStatus(true)}>Đăng nhập</span>
+                <span onClick={() => mediator.notify('SignUp', 'changeStatus', true)}>Đăng nhập</span>
             </div>
-            <form className="auth-form" onSubmit={handleSubmit(onSubmitRegister)}>
+            <form className="auth-form" onSubmit={handleSubmit(handleSubmitForm)}>
                 <div className="auth-form_group">
                     <label>Email</label>
                     <div>

@@ -12,6 +12,7 @@ import { BoxProduct } from '../../components/BoxProduct'; // Import component Bo
 import { BoxCt } from '../../components/BoxCt'; // Import component BoxCt
 import { FilterPrice } from "./FilterPrice"; // Import component FilterPrice
 import { useHistory } from "react-router-dom"; // Import useHistory từ react-router-dom
+import BookIterator from './BookIterator'; // Import BookIterator
 
 // Định nghĩa component BookStore
 export const BookStore = () => {
@@ -65,6 +66,8 @@ export const BookStore = () => {
         filterProductByPrice(dispatch, price);
     }
 
+    const bookIterator = new BookIterator(products); // Tạo instance của BookIterator
+
     return (
         <div className="book-store_wrap">
             {isLoading ? "" : <Loader />} {/* Hiển thị Loader nếu đang loading */}
@@ -72,17 +75,22 @@ export const BookStore = () => {
                 <Row>
                     <Col lg={8} md={12} xs={12} xl={9}>
                         <Row>
-                            {products.map(product => {
-                                return (
-                                    <Col
-                                        xl={4}
-                                        lg={6}
-                                        md={6}
-                                        key={product._id} >
-                                        <Card product={product} /> {/* Hiển thị component Card cho từng sản phẩm */}
-                                    </Col>
-                                )
-                            })}
+                            {(() => {
+                                const items = [];
+                                while (bookIterator.hasNext()) {
+                                    const product = bookIterator.next();
+                                    items.push(
+                                        <Col
+                                            xl={4}
+                                            lg={6}
+                                            md={6}
+                                            key={product._id} >
+                                            <Card product={product} /> {/* Hiển thị component Card cho từng sản phẩm */}
+                                        </Col>
+                                    );
+                                }
+                                return items;
+                            })()}
                             {isProductNotFound && (
                                 <div className="not-found_product">
                                     <ImBooks
