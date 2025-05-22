@@ -12,7 +12,7 @@ import { BoxProduct } from '../../components/BoxProduct'; // Import component Bo
 import { BoxCt } from '../../components/BoxCt'; // Import component BoxCt
 import { FilterPrice } from "./FilterPrice"; // Import component FilterPrice
 import { useHistory } from "react-router-dom"; // Import useHistory từ react-router-dom
-import BookIterator from './BookIterator'; // Import BookIterator
+import BookIterator from '../../Iterator/BookIterator'; // Import BookIterator
 
 // Định nghĩa component BookStore
 export const BookStore = () => {
